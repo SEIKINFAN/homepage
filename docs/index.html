@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1080 height=1920 tabindex="-1"></canvas>
+      <canvas id="unity-canvas"  tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -103,6 +103,26 @@
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
+
+      function resizeCanvasToFitWindow() {
+  const canvas = document.getElementById("unity-canvas");
+  const aspect = 1080 / 1920; // ゲームの縦長比率
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  if (width / height > aspect) {
+    width = height * aspect;
+  } else {
+    height = width / aspect;
+  }
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+}
+
+window.addEventListener("resize", resizeCanvasToFitWindow);
+window.addEventListener("load", resizeCanvasToFitWindow);
 
       var script = document.createElement("script");
       script.src = loaderUrl;
